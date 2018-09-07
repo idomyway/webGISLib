@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Tutorial: Hello Dojo!</title>
+    </head>
+    <body>
+        <h1 id="greeting">Hello</h1>
+        <!-- load Dojo -->
+        <script src="http://10.10.70.85:6090/arcgis_js_api/library/3.20/3.20/init.js"
+        data-dojo-config="async: true"></script>
+        <script>
+        require([
+            'dojo/dom',
+            'dojo/fx',
+            'dojo/domReady!'
+            ], function (dom, fx) {
+            // 我们之前有的
+                var greeting = dom.byId('greeting');
+                greeting.innerHTML += ' from Dojo!';
+                // 现在，有了动画
+                fx.slideTo({
+                    node: greeting,
+                    top: 100,
+                    left: 200
+                }).play();
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Tutorial: Hello Dojo!</title>
+    </head>
+    <body>
+        <h1 id="greeting">Hello</h1>
+        <!-- load Dojo -->
+        <script src="http://10.10.70.85:6090/arcgis_js_api/library/3.20/3.20/init.js"
+        data-dojo-config="async: true"></script>
+        <script>
+	        require([
+				"dojo/query",
+				"dojo/_base/array",
+				"dojo/dom-construct",
+				"dojo/domReady!"
+			], function(query, array, domConst){
+				function topLinks(){
+					var headings = query('h2,h3');
+					array.forEach(headings, function(elm){
+						var topLink = domConst.create("a", {
+							href: "#top",
+							innerHTML: "^top"
+						});
+						domConst.place(topLink, elm, "before");
+					});
+				}
+				topLinks();
+			});
+        </script>
+    </body>
+</html>

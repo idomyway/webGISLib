@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Tutorial: Hello Dojo!</title>
+	</head>
+	<body>
+		<h1 id="greeting">Hello</h1>
+		<!-- 配置 Dojo -->
+		<script>
+			// 为了代替data-dojo-config，我们在加载dojo.js之前创建一个dojoConfig对象；
+			//它们在功能上完全相同，只是这种方法对于大型配置来说更容易读懂。
+			var dojoConfig = {
+				async: true,
+				// 这个代码注册“demo”包的正确位置，这样我们就能够在从CDN加载Dojo的同时加载本地模块了
+				packages: [{
+				name: "myModule",
+				location: location.pathname.replace(/\/[^/]*$/,'') + '/myModule'
+				}]
+			};
+		</script>
+		<!-- 加载 Dojo -->
+		<script src="http://10.10.70.85:6090/arcgis_js_api/library/3.20/3.20/init.js"></script>
+		<script>
+			require([
+				'myModule/myModule',
+				'dojo/domReady!'
+				
+			], function (myModule) {
+				myModule.setText('greeting', 'Hello Dojo!');
+				setTimeout(function () {
+					myModule.restoreText('greeting');
+				}, 3000);
+			});
+		</script>
+	</body>
+</html>

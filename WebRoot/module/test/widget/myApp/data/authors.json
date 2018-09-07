@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Brian Arnold",
+        "avatar": "myApp/widget/images/1.png",
+        "bio": "Brian Arnold is a software engineer at SitePen, Inc., ..."
+    },
+    {
+        "name": "davada",
+        "avatar": "myApp/widget/images/2.png",
+        "bio": "Brian Arnold is a software engineer at SitePen, Inc., ..."
+    },
+    {
+        "name": "abc",        
+        "bio": "Brian Arnold is a software engineer at SitePen, Inc., ..."
+    }
+     
+]

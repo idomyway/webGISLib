@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Demo: The Dijit Lifecycle</title>
+	<link rel="stylesheet" href="widget01.css" media="screen">
+	<link rel="stylesheet" href="http://10.10.70.85:6090/arcgis_js_api/library/3.20/3.20/dijit/themes/claro/claro.css" media="screen">
+</head>
+<body class="claro">
+<h1>Demo: Showing the lifecycle of a Widget</h1>
+<p>下边的列表是在dijit的button实例化的过程中，动态创建的.更多的信息请查看控制台.</p>
+<ol id="lifecycle"></ol>
+<div id="buttonContainer"></div>
+
+<!-- load dojo -->
+<script src="http://10.10.70.85:6090/arcgis_js_api/library/3.20/3.20/init.js"></script>
+<script>
+	require(["dojo/_base/array", "dijit/form/Button", "dojo/aspect", "dojo/dom", "dojo/dom-construct", "dojo/domReady!"],
+			function(array, Button, aspect, dom, domConstruct){
+				// connect to the lifecycle methods of a dijit.form.Button
+				var methods = [ "postscript", "create", "postMixInProperties", "buildRendering", "postCreate", "startup" ];
+				array.forEach(methods, function(method){
+					aspect.before(Button.prototype, method, function(){
+						if(console && console.log) { console.log(method, arguments); }
+						domConstruct.create("li", {
+							innerHTML: method
+						}, dom.byId("lifecycle"));
+					});
+				});
+
+				// ok, create a button programmatically
+				var button = Button({ label: "A button" }, dom.byId("buttonContainer"));
+				button.startup();
+			});
+</script>
+</body>
+</html>

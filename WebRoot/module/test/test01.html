@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Tutorial: Hello Dojo!</title>
+	</head>
+	<body>
+		<h1 id="greeting">Hello</h1>
+		<!-- load Dojo -->
+		<script src="http://10.10.70.85:6090/arcgis_js_api/library/3.20/3.20/init.js"
+		data-dojo-config="async: true"></script>
+		<script>
+			require([
+				'dojo/dom',
+				'dojo/dom-construct',
+				'dojo/topic',
+				'dojo/domReady!'
+			], function (dom, domConstruct,topic) {
+				
+				function Tom(topic) {
+				    this.topic = topic;
+				    this.hello = function () {
+				        alert("Hello,I'm Tom!");
+
+				        //Tom直接发布信息，不针对某个具体的目标
+				        dojo.publish(this.topic);
+				    }
+				}
+
+				function Jerry(topic) {
+				    this.topic = topic;
+				    this.hello = function () {
+				        alert("Hello,I'm Jerry");
+				    }
+
+				    //Jerry直接预订信息，但不针对某个具体的来源
+				    dojo.subscribe(this.topic, this, "hello");
+				}
+
+				var tom = new Tom("/hello");
+				var jerry = new Jerry("/hello");
+
+				tom.hello();
+			});
+		</script>
+	</body>
+</html>

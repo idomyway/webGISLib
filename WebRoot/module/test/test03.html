@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Tutorial: Hello Dojo!</title>
+	</head>
+	<body>
+		<button onclick="tom.hello();">click me</button>
+		<!-- load Dojo -->
+		<script src="http://10.10.70.85:6090/arcgis_js_api/library/3.20/3.20/init.js"
+		data-dojo-config="async: true"></script>
+		<script>
+		 var tom=null;
+			require([
+				'dojo/dom',
+				'dojo/dom-construct',
+				'dojo/topic',
+				'dojo/domReady!'
+			], function (dom, domConstruct,topic) {
+				
+				var handle=topic.subscribe("some/topic", function(){
+			        console.log("received:", arguments);
+			    });
+			    // ...
+			    topic.publish("some/topic", "one", "two","three","four","five","six");
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>第一个JavaScript API应用</title>
+    <link rel="stylesheet" href="http://10.10.70.85:6090/arcgis_js_api/library/3.20/3.20/dijit/themes/tundra/tundra.css" />
+    <link rel="stylesheet" href="http://10.10.70.85:6090/arcgis_js_api/library/3.20/3.20/esri/css/esri.css" />
+    <style>
+        html, body, #mapDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+        }
+    </style>
+    <script src="http://10.10.70.85:6090/arcgis_js_api/library/3.20/3.20/init.js"></script>
+    <script>        
+        require(["esri/map", "esri/layers/ArcGISTiledMapServiceLayer",
+                 "esri/layers/GraphicsLayer",
+                 "esri/geometry/Point", "esri/symbols/SimpleMarkerSymbol",
+                 "esri/Color", "esri/InfoTemplate", "esri/graphic",
+                 "dojo/domReady!"
+                 ], function (
+                		 Map, ArcGISTiledMapServiceLayer,
+                		 GraphicsLayer,
+                		 Point,SimpleMarkerSymbol,Color,InfoTemplate,Graphic) {
+            // 以下是创建地图与加入底图的代码
+        	 var map = new Map("mapDiv");
+             var agoServiceURL = "http://10.10.70.176:6080/arcgis/rest/services/thematic/cldx/MapServer";
+             var agoLayer = new ArcGISTiledMapServiceLayer(agoServiceURL);
+             map.addLayer(agoLayer);
+             map.on("click",function(evt){
+            	 console.log(evt);
+             });
+             
+             var countyLayer = new GraphicsLayer();
+             map.addLayer(countyLayer);
+             var pt = new Point(397783.8371988267,4052659.1080423146,map.spatialReference)
+             var sms = new SimpleMarkerSymbol().setStyle(
+               SimpleMarkerSymbol.STYLE_SQUARE).setColor(
+               new Color([255,0,0,0.5]));
+             var attr = {"Xcoord":"397783.8371988267","Ycoord":"4052659.1080423146","name":"报警点"};
+             var infoTemplate = new InfoTemplate("Vernal Pool Locations","纬度: ${Ycoord} <br/>"
+               +"精度: ${Xcoord} <br/>"
+               +"站点名称:${name}");
+             var graphic = new Graphic(pt,sms,attr,infoTemplate); 
+             countyLayer.add(graphic);
+             
+             
+        });
+    </script>
+</head>
+<body class="tundra">
+    <div id="mapDiv"></div>
+</body>
+</html>
